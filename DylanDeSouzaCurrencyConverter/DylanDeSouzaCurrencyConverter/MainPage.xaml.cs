@@ -19,5 +19,10 @@ namespace DylanDeSouzaCurrencyConverter
         {
 
         }
+
+        private void currenciesListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+        }
     }
 }
