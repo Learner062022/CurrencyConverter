@@ -5,23 +5,34 @@ using System.Text;
 using static DylanDeSouzaCurrencyConverter.APIHandler;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using static DylanDeSouzaCurrencyConverter.MainPage;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace DylanDeSouzaCurrencyConverter
 {
-    // Handle interactions between View and Model
     internal class MainPageViewModel : INotifyPropertyChanged
     {
-        private APIHandler apiHandler = new APIHandler();
-        private Currency currency;
+        private APIHandler _apiHandler = new APIHandler();
+        private Currency _currency;
+        public ObservableCollection<Currency> CurrencyList = new ObservableCollection<Currency>();
+        public ICommand ButtonCommand { get; private set; } // Add this line
+       
+
+        public MainPageViewModel()
+        {
+            _currency = new Currency();
+        }
 
         public Currency Currency
         {
-            get => currency;
+            get => _currency;
             set
             {
-                if (currency != value)
+                if (_currency != value)
                 {
-                    currency = value;
+                    _currency = value;
                     OnPropertyChanged();  // Notify the view of the change
                 }
             }
@@ -30,7 +41,7 @@ namespace DylanDeSouzaCurrencyConverter
         public async Task ConvertCurrency()
         {
             // Conversion logic
-            Currency = await apiHandler.FetchCurrencyDataAsync();
+            // Currency = await _apiHandler.FetchCurrencyDataAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

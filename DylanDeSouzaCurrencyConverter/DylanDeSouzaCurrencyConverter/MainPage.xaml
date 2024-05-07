@@ -20,6 +20,8 @@
     </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -27,8 +29,16 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <ListView x:Name="currenciesListView" ItemTapped="currenciesListView_ItemTapped">
+        <StackLayout Orientation="Horizontal" Grid.Row="0">
+            <Label Text="Amount Foreign Currency:"/>
+            <Label Text="{Binding AmountForeignCurrency}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal"  Grid.Row="1">
+            <Label Text="Amount Australian Dollars:"/>
+            <Label Text="{Binding AmountAustralianDollars}"/>
+        </StackLayout>
+        <Grid Grid.Row="2">
+            <ListView x:Name="currenciesListView" ItemTapped="CurrenciesListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -41,33 +51,43 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Text="AC" Grid.Column="0"/>
-            <Button Text="DEL" Grid.Column="1"/>
-            <Button Text="DIV" Grid.Column="2"/>
+            <Button Text="C" Grid.Column="0" Clicked="Button_Clicked"/>
+            <Button Text="DEL" Grid.Column="1" Clicked="Button_Clicked"/>
+            <Button Text="DIV" Grid.Column="2" Clicked="Button_Clicked"/>
         </Grid>
-        <Grid Grid.Row="2" Style="{StaticResource FourColumnGridStyle}">
+        <Grid Grid.Row="4" Style="{StaticResource FourColumnGridStyle}">
             <Button Text="7" Clicked="Button_Clicked" Grid.Column="0"/>
             <Button Text="8" Clicked="Button_Clicked" Grid.Column="1"/>
             <Button Text="9" Clicked="Button_Clicked" Grid.Column="2"/>
-            <Button Text="X" Clicked="Button_Clicked" Grid.Column="3"/>
+            <Button Text="x" Clicked="Button_Clicked" Grid.Column="3"/>
         </Grid>
-        <Grid Grid.Row="3" Style="{StaticResource FourColumnGridStyle}">
+        <Grid Grid.Row="5" Style="{StaticResource FourColumnGridStyle}">
             <Button Text="4" Clicked="Button_Clicked" Grid.Column="0"/>
             <Button Text="5" Clicked="Button_Clicked" Grid.Column="1"/>
             <Button Text="6" Clicked="Button_Clicked" Grid.Column="2"/>
             <Button Text="-" Clicked="Button_Clicked" Grid.Column="3"/>
         </Grid>
-        <Grid Grid.Row="4" Style="{StaticResource FourColumnGridStyle}">
+        <Grid Grid.Row="6" Style="{StaticResource FourColumnGridStyle}">
             <Button Text="1" Clicked="Button_Clicked" Grid.Column="0"/>
-            <Button Text="1" Clicked="Button_Clicked" Grid.Column="1"/>
+            <Button Text="2" Clicked="Button_Clicked" Grid.Column="1"/>
             <Button Text="3" Clicked="Button_Clicked" Grid.Column="2"/>
             <Button Text="+" Clicked="Button_Clicked" Grid.Column="3"/>
+        </Grid>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Text="0" Grid.Column="0" Clicked="Button_Clicked"/>
+            <Button Text="." Grid.Column="1" Clicked="Button_Clicked"/>
+            <Button Text="=" Grid.Column="2" Clicked="Button_Clicked"/>
         </Grid>
     </Grid>
 </ContentPage>
