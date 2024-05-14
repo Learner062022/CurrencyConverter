@@ -1,61 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DylanDeSouzaCurrencyConverter
 {
     public class Currency : INotifyPropertyChanged
     {
-        private string _amountAustralianDollars = "0";
-        private string _amountForeignCurrency = "0";
-        private string _conversionRate;
-        private string _convertTo;
+        private decimal _amountAustralianDollars = 0m; 
+        private decimal _amountForeignCurrency; 
+        private decimal _rate;
+        private string _name;
+        private decimal _USDToAUD;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void AppendDigit(string digit)
-        {
-            if (_amountAustralianDollars == "0")
-            {
-                AmountAustralianDollars = digit;
-            }
-            else
-            {
-                AmountAustralianDollars += digit;
-            }
-        }
-
-        public void Clear() => AmountAustralianDollars = "0";
-
-        public void DeleteLastDigit()
-        {
-            if (_amountAustralianDollars.Length == 1 && _amountAustralianDollars != "0")
-            {
-                AmountAustralianDollars = "0";
-            }
-            else if (_amountAustralianDollars.Length > 1)
-            {
-                AmountAustralianDollars = AmountAustralianDollars.Substring(0, AmountAustralianDollars.Length - 1);
-            }
-        }
-
-        public void AddDecimal()
-        {
-            if (!_amountAustralianDollars.Contains("."))
-            {
-                AmountAustralianDollars += ".";
-            }
-        }
-
-        public string AmountAustralianDollars
+        public decimal AmountAustralianDollars
         {
             get => _amountAustralianDollars;
             set
@@ -63,26 +29,55 @@ namespace DylanDeSouzaCurrencyConverter
                 if (_amountAustralianDollars != value)
                 {
                     _amountAustralianDollars = value;
-                    OnPropertyChanged(nameof(AmountAustralianDollars));
+                    OnPropertyChanged();
                     UpdateForeignCurrency();
                 }
             }
         }
 
-        public string ConvertTo
+        public string Name
         {
-            get => _convertTo;
+            get => _name;
             set
             {
-                if (_convertTo != value)
+                if (_name != value)
                 {
-                    _convertTo = value;
-                    OnPropertyChanged(nameof(_convertTo));
+                    _name = value;
+                    OnPropertyChanged();
+                    UpdateForeignCurrency();
                 }
             }
         }
 
-        public string AmountForeignCurrency
+        public decimal Rate
+        {
+            get => _rate;
+            set
+            {
+                if (_rate != value)
+                {
+                    _rate = value;
+                    OnPropertyChanged();
+                    UpdateForeignCurrency();
+                }
+            }
+        }
+
+        public decimal USDToAUD
+        {
+            get => _USDToAUD;
+            set
+            {
+                if (_USDToAUD != value)
+                {
+                    _USDToAUD = value;
+                    OnPropertyChanged();
+                    UpdateForeignCurrency();
+                }
+            }
+        }
+
+        public decimal AmountForeignCurrency
         {
             get => _amountForeignCurrency;
             private set
@@ -90,36 +85,48 @@ namespace DylanDeSouzaCurrencyConverter
                 if (_amountForeignCurrency != value)
                 {
                     _amountForeignCurrency = value;
-                    OnPropertyChanged(nameof(AmountForeignCurrency));
+                    OnPropertyChanged();
                 }
             }
         }
 
-        public string ConversionRate
+        public void Reset()
         {
-            get => _conversionRate;
-            set
+            AmountAustralianDollars = 0m;
+            Rate = 0;
+            Name = null;
+        } 
+
+        public void DeleteLastDigit()
+        {
+            string amount = _amountAustralianDollars.ToString();
+            int lengthAmount = amount.Length;
+            if (lengthAmount == 1 && _amountAustralianDollars != 0m)
             {
-                if (_conversionRate != value)
-                {
-                    _conversionRate = value;
-                    OnPropertyChanged(nameof(ConversionRate));
-                    UpdateForeignCurrency();
-                }
+                Reset();
+            }
+            else if (lengthAmount > 1)
+            {
+                amount = amount.Substring(0, lengthAmount - 1);
+                AmountAustralianDollars = Convert.ToDecimal(amount);
+            }
+        }
+
+
+        public void FindRateForCurrency(ObservableCollection<Currency> collection)
+        {
+            var currency = collection.FirstOrDefault(c => c.Name == _name);
+            if (currency != null)
+            {
+                Rate = currency.Rate;
+                UpdateForeignCurrency();
             }
         }
 
         void UpdateForeignCurrency()
         {
-            if (double.TryParse(_amountAustralianDollars, out double amountAustralianDollars) &&
-                double.TryParse(_conversionRate, out double conversionRate))
-            {
-                AmountForeignCurrency = (amountAustralianDollars * conversionRate).ToString(CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                AmountForeignCurrency = "0";
-            }
+            decimal result = _amountAustralianDollars * _USDToAUD * _rate;
+            AmountForeignCurrency = decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
     }
 }

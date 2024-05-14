@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace DylanDeSouzaCurrencyConverter
 {
@@ -9,7 +7,6 @@ namespace DylanDeSouzaCurrencyConverter
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
         }
 

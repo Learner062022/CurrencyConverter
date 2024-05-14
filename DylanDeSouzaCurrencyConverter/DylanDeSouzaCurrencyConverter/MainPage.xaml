@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="DylanDeSouzaCurrencyConverter.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -31,25 +31,27 @@
         </Grid.RowDefinitions>
         <StackLayout Orientation="Horizontal" Grid.Row="0">
             <Label Text="Amount Foreign Currency:"/>
-            <Label Text="{Binding AmountForeignCurrency}"/>
+            <Label Text="{Binding Currency.AmountForeignCurrency}"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal"  Grid.Row="1">
             <Label Text="Amount Australian Dollars:"/>
-            <Label Text="{Binding AmountAustralianDollars}"/>
+            <Label Text="{Binding Currency.AmountAustralianDollars}"/>
         </StackLayout>
         <Grid Grid.Row="2">
-            <ListView x:Name="currenciesListView" ItemTapped="CurrenciesListView_ItemTapped">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="Convertable Currencies"/>
-                                <Label Text="{Binding ConvertTo}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout>
+                <Label Text="Currencies"/>
+                <ListView x:Name="currenciesListView" ItemTapped="CurrencySelected"  ItemsSource="{Binding CollectionCurrencies}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" />
+                                </StackLayout>
+                            </ViewCell> 
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
