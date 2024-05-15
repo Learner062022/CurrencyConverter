@@ -192,6 +192,12 @@ namespace DylanDeSouzaCurrencyConverter
             {
                 if (!(_currentValue == "0" && buttonText == "0"))
                 {
+                    if (_currentValue.Contains("."))
+                    {
+                        int decimalIndex = _currentValue.IndexOf(".");
+                        int digitsAfterDecimal = _currentValue.Length - decimalIndex - 1;
+                        if (digitsAfterDecimal >= 2) return;
+                    }
                     _currentValue += buttonText;
                 }
             }
