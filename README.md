@@ -81,11 +81,7 @@ Ensure the app works correctly by performing the following tests:
 
 # License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Notice
-
-This repository can be forked and modified, but cannot be claimed as your own. Credit the original creator when sharing or distributing modified versions.
+[GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.txt)
 
 ## Acknowledgements
 
