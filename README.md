@@ -8,18 +8,16 @@ This app allows users to enter an amount in Australian dollars (AUD) and convert
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/yourusername/DylanDeSouzaSimpleCurrencyConverter.git
+    git clone https://github.com/Learner062022/CurrencyConverter.git
     ```
 2. **Navigate to the project directory:**
     ```sh
-    cd DylanDeSouzaSimpleCurrencyConverter
+    cd CurrencyConverter
     ```
-3. **Open the solution in Visual Studio:**
+3. **Install the necessary dependencies:**
     ```sh
-    start DylanDeSouzaSimpleCurrencyConverter.sln
+    npm install
     ```
-4. **Run the project:**
-    - In Visual Studio, select `Debug > Start Debugging`.
 
 ## Usage
 
@@ -63,6 +61,31 @@ Ensure the app works correctly by performing the following tests:
 2. **Incorrect URL:** Modify the API URL to an incorrect one and check for error handling.
 3. **Incorrect API call:** Modify the API call path to an incorrect one and check for error handling.
 4. **Verify conversions:** Use Google to convert the same amounts and compare the results. Slight differences are acceptable due to API update intervals.
+
+## Contributing
+
+1. **Fork the repository.**
+2. **Create a new branch:**
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+3. **Commit your changes:**
+    ```bash
+    git commit -m 'Add some feature'
+    ```
+4. **Push to the branch:**
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+5. **Create a new pull request.
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Notice
+
+This repository can be forked and modified, but cannot be claimed as your own. Credit the original creator when sharing or distributing modified versions.
 
 ## Acknowledgements
 
